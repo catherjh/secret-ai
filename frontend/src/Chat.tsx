@@ -3,8 +3,11 @@ import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
+import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 
 import { io } from "socket.io-client";
+import ChatBubble from "./ChatBubble";
+import Header from "./Header";
 
 interface MessageWithUser {
   message: string
@@ -40,11 +43,18 @@ const Chat = () => {
 
   return (
     <div>
+      <Header/>
       <div id="chat-area">
         {messages.map((messageWithUser, index) => (
           <div key={index} className="p-2 mb-2 bg-secondary rounded">
             {`${messageWithUser.user}: ${messageWithUser.message}`}
           </div>
+        {messages.map((message, index) => (
+          <ChatBubble
+            key={index}
+            message={message}
+            isUser={index % 2 === 0}
+          />
         ))}
       </div>
       <div className="input-group">
