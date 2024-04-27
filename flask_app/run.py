@@ -9,12 +9,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 game_engine = GameEngine()
 
-
-async def call_llm():
-    game_engine.add_message("I AM A LLM")
-    send("I AM A LLM", broadcast=True)
-
-
 @app.route("/")
 def index():
     html_messages = ""
@@ -30,9 +24,10 @@ def handle_message(message):
     send(message, broadcast=True)
 
     if len(game_engine.messages) % 3 == 0:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.create_task(call_llm())
+        game_engine.add_message("I AM A LLM")
+        send("I AM A LLM", broadcast=True)
+        print("Receied")
+        
 
 
 if __name__ == '__main__':
