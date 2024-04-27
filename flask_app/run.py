@@ -6,6 +6,7 @@ import string
 import random
 
 
+from custom_types import MessageWithUser
 from gateways.openai_gateway import OpenAIGateway
 
 app = Flask(__name__)
@@ -24,13 +25,15 @@ def handle_message(message):
         session["user"] = username
         game_engine.users.append(username)
 
-    game_engine.add_message({"msg": message, "user": session["user"]})
-    emit("chat", {"user": session["user"], "message": message}, broadcast=True)
+    user_input = MessageWithUser(user=session["user"], message=message)
+    game_engine.add_message(user_input)
+    emit("chat", dict(user_input), broadcast=True)
 
     if len(game_engine.messages) % 3 == 0:
         msg = openai_gateway.chat_completion(game_engine.messages)
-        game_engine.add_message({"msg": msg, "user": "AI"})
-        emit("chat", {"user": "AI", "message": msg}, broadcast=True)
+        ai_output = MessageWithUser(user="AI", message=msg)
+        game_engine.add_message(ai_output)
+        emit("chat", dict(ai_output), broadcast=True)
         print("Received")
 
 
