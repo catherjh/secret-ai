@@ -42,13 +42,14 @@
                 var message = $('#message-input').val();
                 if(message.trim() !== '') {
                     console.log("emit message");
-                    socket.emit('message', message);
+                    socket.emit('chat', message);
                     $('#message-input').val('');
                 }
             });
 
-            socket.on('message', function(msg) {
-                var messageElement = '<div class="p-2 mb-2 bg-secondary text-white rounded">' + msg + '</div>';
+            socket.on('chat', function(data) {
+                console.log(data);
+                var messageElement = '<div class="p-2 mb-2 bg-secondary text-white rounded">' + data + '</div>';
                 $('#chat-area').append(messageElement);
                 $('#chat-area').scrollTop($('#chat-area')[0].scrollHeight);
             });
