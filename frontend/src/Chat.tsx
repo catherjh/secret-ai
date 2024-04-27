@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
-import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import _ from 'lodash';
 
 import { io } from "socket.io-client";
 import ChatBubble from "./ChatBubble";
@@ -14,22 +14,27 @@ interface MessageWithUser {
   user: string;
 }
 
-const Chat = () => {
+const Chat = ({
+  setUsers,
+}: {
+  setUsers: Dispatch<SetStateAction<string[]>>;
+}) => {
   const [messages, setMessages] = useState<MessageWithUser[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     const socket = io("http://127.0.0.1:5000");
 
-    socket.on("chat", (msg: MessageWithUser) =>
-      setMessages((prevMessages) => [...prevMessages, msg])
-    );
+    socket.on("chat", (msg: MessageWithUser) => {
+      setMessages((prevMessages) => [...prevMessages, msg]);
+      setUsers((prevUsers) => _.uniq([...prevUsers, msg.user]));
+    });
     console.log("messages here", messages);
 
     return () => {
       socket.disconnect();
     };
-  }, [messages]);
+  }, [messages, setUsers]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

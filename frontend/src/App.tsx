@@ -63,11 +63,14 @@ import { Voting } from "./Voting";
 </html>
  */
 
-const App: React.FC<{}> = () => (
-  <div className="flex justify-center items-center h-screen flex-col">
-    <Chat />
-    <Voting />
-  </div>
-);
+const App: React.FC<{}> = () => {
+  const [users, setUsers] = React.useState<string[]>([]);
+  return (
+    <div className="flex justify-center items-center h-screen flex-col">
+      <Chat setUsers={setUsers}/>
+      <Voting users={users}/>
+    </div>
+  );
+};
 
 export default App;
