@@ -53,7 +53,7 @@ const Chat = ({
       <Header/>
       <div id="chat-area" style={{ margin: "auto"}}>
         {messages.map((messageWithUser, index) => (
-          <ChatBubble message={messageWithUser.message} username={messageWithUser.user} isUser={messageWithUser.user !== "AI"} />
+          <ChatBubble message={messageWithUser.message} username={messageWithUser.user} isUser={messageWithUser.user === userId} />
         ))}
       </div>
       <div className="input-group">
