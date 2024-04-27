@@ -34,7 +34,7 @@ def handle_message(message):
 
     if len(game_engine.messages) % 3 == 0:
         msg = openai_gateway.chat_completion(game_engine.messages)
-        ai_output = MessageWithUser(user="AI", message=msg)
+        ai_output = MessageWithUser(user=game_engine.ai_username, message=msg)
         game_engine.add_message(ai_output)
         emit("chat", dict(ai_output), broadcast=True)
         print("Received")

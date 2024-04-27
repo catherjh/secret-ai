@@ -50,10 +50,14 @@ const Chat = ({
 
   return (
     <div className="w-full">
-      <Header/>
-      <div id="chat-area" style={{ margin: "auto"}}>
+      <Header />
+      <div id="chat-area" style={{ margin: "auto" }}>
         {messages.map((messageWithUser, index) => (
-          <ChatBubble message={messageWithUser.message} username={messageWithUser.user} isUser={messageWithUser.user === userId} />
+          <ChatBubble
+            message={messageWithUser.message}
+            username={messageWithUser.user}
+            isUser={messageWithUser.user === userId}
+          />
         ))}
       </div>
       <div className="input-group">
@@ -66,10 +70,9 @@ const Chat = ({
             if (e.target.value.endsWith("\n")) {
               handleSubmit(e);
             } else {
-              setInputValue(e.target.value)
+              setInputValue(e.target.value);
             }
-          }
-          }
+          }}
         />
       </div>
     </div>

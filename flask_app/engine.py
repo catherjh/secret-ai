@@ -4,6 +4,7 @@ class GameEngine:
         self.curr_prompt = self.prompts[0]
         self.messages = []
         self.users = []
+        self.ai_username = 'y6jjb'
 
     def reset(self):
         self.messages = []
@@ -11,4 +12,3 @@ class GameEngine:
 
     def add_message(self, msg):
         self.messages.append(msg)
-
