@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import { io } from "socket.io-client";
 
 const Chat = () => {
@@ -32,14 +34,13 @@ const Chat = () => {
     <div>
       <div id="chat-area">
         {messages.map((message, index) => (
-          <div key={index} className="p-2 mb-2 bg-secondary text-white rounded">
+          <div key={index} className="p-2 mb-2 bg-secondary rounded">
             {message}
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <input
+      <div className="input-group">
+        {/* <input
             type="text"
             className="form-control"
             value={inputValue}
@@ -47,12 +48,21 @@ const Chat = () => {
             placeholder="Type your message here..."
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
-          />
-          <button className="btn btn-primary" type="submit" id="button-addon2">
-            Send
-          </button>
-        </div>
-      </form>
+          /> */}
+        <TextField
+          label="Type your message here..."
+          variant="standard"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setInputValue(e.target.value);
+          }}
+        />
+        <Button variant="contained" onClick={handleSubmit}>
+          Send
+        </Button>
+        {/* <button className="btn btn-primary" onClick={handleSubmit}>
+          Send
+        </button> */}
+      </div>
     </div>
   );
 };

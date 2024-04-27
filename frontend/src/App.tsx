@@ -63,10 +63,8 @@ import Chat from "./Chat";
  */
 
 const App: React.FC<{}> = () => (
-  <div className="App">
-    <header className="App-header">
-      <Chat />
-    </header>
+  <div className="flex justify-center items-center h-screen">
+    <Chat />
   </div>
 );
 
