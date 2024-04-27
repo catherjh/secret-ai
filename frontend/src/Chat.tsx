@@ -54,7 +54,7 @@ const Chat = ({
         {messages.map((messageWithUser, index) => (
           <ChatBubble
             key={index}
-            message={messageWithUser.message}
+            message={`${messageWithUser.user}: ${messageWithUser.message}`}
             isUser={index % 2 === 0}
           />
         ))}
