@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, session
 from flask_socketio import SocketIO, emit
 from engine import GameEngine
 import asyncio
@@ -8,7 +8,7 @@ import random
 
 from gateways.openai_gateway import OpenAIGateway
 
-app = Flask(__name__, template_folder="template")
+app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret_tunneellll, secret_tuneeneplll"
 socketio = SocketIO(app, cors_allowed_origins="*")
 
@@ -19,7 +19,10 @@ openai_gateway = OpenAIGateway()
 @socketio.on("chat")
 def handle_message(message):
     if "user" not in session or session["user"] not in game_engine.users:
-        return
+        username = ''.join(random.choices(
+            string.ascii_uppercase + string.digits, k=5))
+        session["user"] = username
+        game_engine.users.append(username)
 
     game_engine.add_message({"msg": message, "user": session["user"]})
     emit("chat", session["user"] + ": " + message, broadcast=True)

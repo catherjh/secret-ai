@@ -13,7 +13,7 @@ const Chat = () => {
   useEffect(() => {
     const socket = io("http://127.0.0.1:5000");
 
-    socket.on("message", (msg: string) =>
+    socket.on("chat", (msg: string) =>
       setMessages((prevMessages) => [...prevMessages, msg])
     );
 
@@ -27,7 +27,7 @@ const Chat = () => {
 
     if (inputValue.trim() !== "") {
       const socket = io("http://127.0.0.1:5000");
-      socket.emit("message", inputValue);
+      socket.emit("chat", inputValue);
       setInputValue("");
     }
   };
