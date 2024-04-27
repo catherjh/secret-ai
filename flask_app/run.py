@@ -25,12 +25,12 @@ def handle_message(message):
         game_engine.users.append(username)
 
     game_engine.add_message({"msg": message, "user": session["user"]})
-    emit("chat", session["user"] + ": " + message, broadcast=True)
+    emit("chat", {"user": session["user"], "message": message}, broadcast=True)
 
     if len(game_engine.messages) % 3 == 0:
         msg = openai_gateway.chat_completion(game_engine.messages)
-        game_engine.add_message(msg)
-        emit("chat", ("AI", msg), broadcast=True)
+        game_engine.add_message({"msg": msg, "user": "AI"})
+        emit("chat", {"user": "AI", "message": msg}, broadcast=True)
         print("Received")
 
 

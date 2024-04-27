@@ -6,16 +6,22 @@ import IconButton from "@mui/material/IconButton";
 
 import { io } from "socket.io-client";
 
+interface MessageWithUser {
+  message: string
+  user: string
+}
+
 const Chat = () => {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<MessageWithUser[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     const socket = io("http://127.0.0.1:5000");
 
-    socket.on("chat", (msg: string) =>
+    socket.on("chat", (msg: MessageWithUser) =>
       setMessages((prevMessages) => [...prevMessages, msg])
     );
+    console.log('messages here', messages)
 
     return () => {
       socket.disconnect();
@@ -35,9 +41,9 @@ const Chat = () => {
   return (
     <div>
       <div id="chat-area">
-        {messages.map((message, index) => (
+        {messages.map((messageWithUser, index) => (
           <div key={index} className="p-2 mb-2 bg-secondary rounded">
-            {message}
+            {`${messageWithUser.user}: ${messageWithUser.message}`}
           </div>
         ))}
       </div>

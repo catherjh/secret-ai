@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Chat from "./Chat";
+import { Voting } from "./Voting";
 
 /**
 <!DOCTYPE html>
@@ -63,8 +64,9 @@ import Chat from "./Chat";
  */
 
 const App: React.FC<{}> = () => (
-  <div className="flex justify-center items-center h-screen">
+  <div className="flex justify-center items-center h-screen flex-col">
     <Chat />
+    <Voting />
   </div>
 );
 
