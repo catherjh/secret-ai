@@ -8,6 +8,7 @@ import _ from "lodash";
 import { io } from "socket.io-client";
 import ChatBubble from "./ChatBubble";
 import Header from "./Header";
+import { TextareaAutosize } from "@mui/material";
 
 interface MessageWithUser {
   message: string;
@@ -48,37 +49,27 @@ const Chat = ({
   };
 
   return (
-    <div>
-      <Header />
-      <div id="chat-area">
+    <div className="w-full">
+      <Header/>
+      <div id="chat-area" style={{ margin: "auto"}}>
         {messages.map((messageWithUser, index) => (
-          <ChatBubble
-            key={index}
-            message={`${messageWithUser.user}: ${messageWithUser.message}`}
-            isUser={index % 2 === 0}
-          />
+          <ChatBubble message={messageWithUser.message} username={messageWithUser.user} isUser={messageWithUser.user !== "AI"} />
         ))}
       </div>
       <div className="input-group">
-        <TextField
+        <TextareaAutosize
+          className="w-full border-2 border-purple-500 rounded"
           value={inputValue}
-          label="Type your message here..."
-          variant="standard"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setInputValue(e.target.value)
+          minRows={2}
+          placeholder="Enter to chat..."
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            if (e.target.value.endsWith("\n")) {
+              handleSubmit(e);
+            } else {
+              setInputValue(e.target.value)
+            }
           }
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton edge="end">
-                  <SendIcon
-                    onClick={handleSubmit}
-                    style={{ cursor: "pointer" }}
-                  />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
+          }
         />
       </div>
     </div>

@@ -6,3 +6,9 @@
     background-color: #ffffff; /* Add background color if needed */
     z-index: 999; /* Ensure it's on top of other content */
   }
+
+#chat-area {
+    height: 80%;
+    width: 100%;
+    overflow-y: scroll;
+}

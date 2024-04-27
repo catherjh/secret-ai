@@ -16,11 +16,11 @@ const App: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-screen flex-col">
+    <div className="flex justify-center items-center h-screen flex-col w-100 h-100">
       {userId === null ? (
         <div>Loading...</div>
       ) : (
-        <div>
+        <div className="w-3/4">
           <Chat setUsers={setUsers} userId={userId} />
           <Voting users={users} />
         </div>
