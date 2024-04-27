@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import SendIcon from "@mui/icons-material/Send";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+
 import { io } from "socket.io-client";
 
 const Chat = () => {
@@ -46,10 +49,19 @@ const Chat = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setInputValue(e.target.value)
           }
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton edge="end">
+                  <SendIcon
+                    onClick={handleSubmit}
+                    style={{ cursor: "pointer" }}
+                  />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
-        <Button variant="contained" onClick={handleSubmit}>
-          Send
-        </Button>
       </div>
     </div>
   );
