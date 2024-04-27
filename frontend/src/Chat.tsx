@@ -10,10 +10,9 @@ const Chat = () => {
   useEffect(() => {
     const socket = io("http://127.0.0.1:5000");
 
-    socket.on("message", (msg: string) => {
-      setMessages((prevMessages) => [...prevMessages, msg]);
-      console.log("message", messages);
-    });
+    socket.on("message", (msg: string) =>
+      setMessages((prevMessages) => [...prevMessages, msg])
+    );
 
     return () => {
       socket.disconnect();
@@ -40,28 +39,17 @@ const Chat = () => {
         ))}
       </div>
       <div className="input-group">
-        {/* <input
-            type="text"
-            className="form-control"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Type your message here..."
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
-          /> */}
         <TextField
+          value={inputValue}
           label="Type your message here..."
           variant="standard"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setInputValue(e.target.value);
-          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setInputValue(e.target.value)
+          }
         />
         <Button variant="contained" onClick={handleSubmit}>
           Send
         </Button>
-        {/* <button className="btn btn-primary" onClick={handleSubmit}>
-          Send
-        </button> */}
       </div>
     </div>
   );
