@@ -7,11 +7,11 @@ import IconButton from "@mui/material/IconButton";
 import { io } from "socket.io-client";
 
 interface MessageWithUser {
-  message: string
-  user: string
+  message: string;
+  user: string;
 }
 
-const Chat = () => {
+const Chat = ({ userId }: { userId: string }) => {
   const [messages, setMessages] = useState<MessageWithUser[]>([]);
   const [inputValue, setInputValue] = useState("");
 
@@ -21,7 +21,6 @@ const Chat = () => {
     socket.on("chat", (msg: MessageWithUser) =>
       setMessages((prevMessages) => [...prevMessages, msg])
     );
-    console.log('messages here', messages)
 
     return () => {
       socket.disconnect();
@@ -33,7 +32,7 @@ const Chat = () => {
 
     if (inputValue.trim() !== "") {
       const socket = io("http://127.0.0.1:5000");
-      socket.emit("chat", inputValue);
+      socket.emit("chat", JSON.stringify({ inputValue, userId }));
       setInputValue("");
     }
   };
