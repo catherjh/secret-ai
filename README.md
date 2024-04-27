@@ -10,4 +10,4 @@ python -m uvicorn app:app --reload
 
 ## Frontend Dev
 
-Start the streamlit frontend server via `streamlit run main.py`
+Do `npm start` in frontend folder.
