@@ -21,6 +21,7 @@
         </div>
         <div id="chat-area" class="border rounded p-3 mb-3">
             <!-- Chat messages will be appended here -->
+            {{ html_messages|safe}}
         </div>
         <form id="chat-form">
             <div class="input-group">
