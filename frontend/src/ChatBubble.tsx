@@ -36,7 +36,7 @@ const ChatBubble = ({message, username, isUser}: {message: string, username: str
         {!isUser? <Avatar {...stringAvatar(username)}></Avatar>: null}
     <Card variant="outlined" style={{margin: '10px', width: '100%'}}>
         <CardContent>
-            <Typography sx={{ fontSize: 14 }}>{message}</Typography>
+            <Typography sx={{ fontSize: 14, textAlign: isUser? 'right': 'left' }}>{message}</Typography>
         </CardContent>
     </Card>
     {isUser? <Avatar {...stringAvatar(username)}></Avatar>: null}
