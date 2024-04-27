@@ -28,9 +28,7 @@ def handle_message(message):
     emit("chat", session["user"] + ": " + message, broadcast=True)
 
     if len(game_engine.messages) % 3 == 0:
-        # TODO: store previous messages as dicts in the game engine instead of converting here
-        previous_messages = [{"message": m} for m in game_engine.messages]
-        msg = openai_gateway.chat_completion(previous_messages)
+        msg = openai_gateway.chat_completion(game_engine.messages)
         game_engine.add_message(msg)
         emit("chat", ("AI", msg), broadcast=True)
         print("Received")

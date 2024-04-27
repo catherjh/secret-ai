@@ -13,6 +13,8 @@ class OpenAIGateway:
         response = self.client.chat.completions.create(
             model="gpt-4-turbo",
             messages=[{"role": "system", "content": self.system_prompt}]
-            + [{"role": "user", "content": m["message"]} for m in messages],
+            + [{"role": "user", "content": m["msg"]} for m in messages],
         )
-        return response.choices[0].message.content
+        content = response.choices[0].message.content
+        print(f"content from openai: {content}")
+        return content
