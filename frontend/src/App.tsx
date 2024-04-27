@@ -4,6 +4,7 @@ import Chat from "./Chat";
 import { Voting } from "./Voting";
 
 const App: React.FC<{}> = () => {
+  const [users, setUsers] = React.useState<string[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,8 +21,8 @@ const App: React.FC<{}> = () => {
         <div>Loading...</div>
       ) : (
         <div>
-          <Chat userId={userId} />
-          <Voting />
+          <Chat setUsers={setUsers} userId={userId} />
+          <Voting users={users} />
         </div>
       )}
     </div>
