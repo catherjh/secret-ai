@@ -22,7 +22,7 @@ const App: React.FC<{}> = () => {
       ) : (
         <div className="w-3/4">
           <Chat setUsers={setUsers} userId={userId} />
-          <Voting users={users} />
+          <Voting users={users} userId={userId}/>
         </div>
       )}
     </div>

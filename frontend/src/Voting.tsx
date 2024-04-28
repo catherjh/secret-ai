@@ -11,7 +11,7 @@ import {
 
 const AI_USER = "y6jjb";
 
-export const Voting = ({ users }: { users: string[] }) => {
+export const Voting = ({ users, userId }: { users: string[], userId: string }) => {
   const [selectedValue, setSelectedValue] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -50,7 +50,7 @@ export const Voting = ({ users }: { users: string[] }) => {
             value={selectedValue}
             onChange={handleChange}
           >
-            {users.map((user) => (
+            {users.filter(x => x !== userId).map((user) => (
               <FormControlLabel
                 key={user}
                 value={user}
