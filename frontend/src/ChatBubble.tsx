@@ -40,7 +40,7 @@ const ChatBubble = ({
     };
   }
   return (
-    <span className="w-100" style={{ display: "flex" }}>
+    <span className="w-100" style={{ display: "flex", alignItems: "center" }}>
       {!isUser ? <Avatar {...stringAvatar(username)}></Avatar> : null}
       <Card variant="outlined" style={{ margin: "10px", width: "100%" }}>
         <CardContent>
