@@ -56,7 +56,6 @@ export const Voting = ({ users }: { users: string[] }) => {
                 value={user}
                 control={<Radio />}
                 label={user}
-                style={{ "accentColor": "green" }}
               />
             ))}
           </RadioGroup>
