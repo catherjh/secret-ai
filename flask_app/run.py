@@ -8,6 +8,14 @@ import json
 
 from custom_types import MessageWithUser
 from gateways.openai_gateway import OpenAIGateway
+from guardrails.hub import NSFWText
+from guardrails import Guard
+
+# Use the Guard with the validator
+guard = Guard().use(
+    NSFWText, threshold=0.8, validation_method="sentence", on_fail="exception"
+)
+
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret_tunneellll, secret_tuneeneplll"
@@ -20,12 +28,18 @@ openai_gateway = OpenAIGateway()
 @socketio.on("chat")
 def handle_message(message):
     message_object = json.loads(message)
-
     if "user" not in session or session["user"] not in game_engine.users:
         username = ''.join(random.choices(
             string.ascii_uppercase + string.digits, k=5))
         session["user"] = username
         game_engine.users.append(username)
+
+    try:
+        guard.validate(message)
+    except Exception as e:
+        print(e)
+        emit('error', {'error': 'No profanity'}, broadcast = False)
+        return
 
     user_input = MessageWithUser(
         user=message_object['userId'], message=message_object['inputValue'])

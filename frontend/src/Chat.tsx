@@ -28,13 +28,16 @@ const Chat = ({
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    const socket = io("http://10.10.30.139:5000");
-
+    const socket = io("http://localhost:5000");
     socket.on("chat", (msg: MessageWithUser) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
       setUsers((prevUsers) => _.uniq([...prevUsers, msg.user]));
     });
 
+    socket.on("error", (msg: any) => {
+      window.alert(msg.error);
+      console.log("ERROR", msg);
+    })
     return () => {
       socket.disconnect();
     };
@@ -44,7 +47,7 @@ const Chat = ({
     event.preventDefault();
 
     if (inputValue.trim() !== "") {
-      const socket = io("http://10.10.30.139:5000");
+      const socket = io("http://localhost:5000");
       socket.emit("chat", JSON.stringify({ inputValue, userId }));
       setInputValue("");
     }
