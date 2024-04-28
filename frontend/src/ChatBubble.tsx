@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Card, CardContent, Typography, Avatar } from "@mui/material";
 
 const ChatBubble = ({
