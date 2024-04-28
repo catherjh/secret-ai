@@ -38,7 +38,7 @@ def handle_message(message):
         guard.validate(message)
     except Exception as e:
         print(e)
-        emit('error', {'error': 'No profanity'}, broadcast = False)
+        emit('error', {'error': 'No profanity'}, broadcast = True)
         return
 
     user_input = MessageWithUser(
