@@ -17,7 +17,7 @@ game_engine = GameEngine()
 openai_gateway = OpenAIGateway()
 
 
-@socketio.on("chatRequest")
+@socketio.on("chat")
 def handle_message(message):
     message_object = json.loads(message)
 
@@ -30,13 +30,13 @@ def handle_message(message):
     user_input = MessageWithUser(
         user=message_object['userId'], message=message_object['inputValue'])
     game_engine.add_message(user_input)
-    emit("chatResponse", dict(user_input), broadcast=True)
+    emit("chat", dict(user_input), broadcast=True)
 
     if len(game_engine.messages) % 3 == 0:
         msg = openai_gateway.chat_completion(game_engine.messages)
         ai_output = MessageWithUser(user=game_engine.ai_username, message=msg)
         game_engine.add_message(ai_output)
-        emit("chatResponse", dict(ai_output), broadcast=True)
+        emit("chat", dict(ai_output), broadcast=True)
         print("Received")
 
 
