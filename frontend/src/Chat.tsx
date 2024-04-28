@@ -1,8 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
-import SendIcon from "@mui/icons-material/Send";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import _ from "lodash";
 
 import { io } from "socket.io-client";
@@ -48,11 +50,23 @@ const Chat = ({
     }
   };
 
+  const chatAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatAreaRef.current) {
+      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className="w-full">
       <Header />
-      <div id="chat-area" style={{ margin: "auto" }}>
-        {messages.map((messageWithUser, index) => (
+      <div
+        id="chat-area"
+        style={{ margin: "auto", maxHeight: "400px", overflowY: "auto" }}
+        ref={chatAreaRef}
+      >
+        {messages.map((messageWithUser) => (
           <ChatBubble
             message={messageWithUser.message}
             username={messageWithUser.user}
