@@ -30,7 +30,7 @@ const Chat = ({
   useEffect(() => {
     const socket = io("http://127.0.0.1:5000");
 
-    socket.on("chat", (msg: MessageWithUser) => {
+    socket.on("chatResponse", (msg: MessageWithUser) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
       setUsers((prevUsers) => _.uniq([...prevUsers, msg.user]));
     });
@@ -45,7 +45,7 @@ const Chat = ({
 
     if (inputValue.trim() !== "") {
       const socket = io("http://127.0.0.1:5000");
-      socket.emit("chat", JSON.stringify({ inputValue, userId }));
+      socket.emit("chatRequest", JSON.stringify({ inputValue, userId }));
       setInputValue("");
     }
   };
