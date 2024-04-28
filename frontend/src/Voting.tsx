@@ -56,10 +56,11 @@ export const Voting = ({ users }: { users: string[] }) => {
                 value={user}
                 control={<Radio />}
                 label={user}
+                style={{ "accentColor": "green" }}
               />
             ))}
           </RadioGroup>
-          <Button type="submit" color="primary" variant="contained">
+          <Button type="submit" color="primary" variant="contained" style={{"backgroundColor": "green"}}>
             Submit
           </Button>
         </FormControl>
